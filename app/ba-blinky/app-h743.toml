@@ -6,13 +6,13 @@ stacksize = 896
 
 [kernel]
 name = "ba-blinky"
-requires = {flash = 24000, ram = 5120}
+requires = {flash = 19936, ram = 2208} 
 features = ["h743"]
 
 [tasks.jefe]
 name = "task-jefe"
 priority = 0
-max-sizes = {flash = 16384, ram = 2048}
+max-sizes = {flash = 3328, ram = 2048} 
 start = true
 stacksize = 1536
 notifications = ["fault", "timer"]
@@ -26,7 +26,7 @@ request_reset = ["hiffy"]
 name = "drv-stm32xx-sys"
 features = ["h743"]
 priority = 1
-max-sizes = {flash = 2048, ram = 1024}
+max-sizes = {flash = 1792, ram = 1024}
 uses = ["rcc", "gpios", "system_flash"]
 start = true
 task-slots = ["jefe"]
@@ -35,7 +35,7 @@ task-slots = ["jefe"]
 name = "drv-user-leds"
 features = ["stm32h7"]
 priority = 2
-max-sizes = {flash = 2048, ram = 1024}
+max-sizes = {flash = 1408, ram = 1024}
 start = true
 task-slots = ["sys"]
 notifications = ["timer"]
@@ -52,7 +52,7 @@ notifications = ["timer"]
 name = "task-hiffy"
 features = ["h743", "stm32h7"]
 priority = 4
-max-sizes = {flash = 32768, ram = 32768 }
+max-sizes = {flash = 15232, ram = 32768 } 
 stacksize = 2048
 start = true
 task-slots = ["sys"]

@@ -11,12 +11,13 @@ task_slot!(USER_LEDS, user_leds);
 
 #[export_name = "main"]
 pub fn main() -> ! {
-    const INTERVAL: u64 = 200; //changed from 500
+    const INTERVAL: u64 = 500; 
 
     let mut response: u32 = 0;
 
     let user_leds = drv_user_leds_api::UserLeds::from(USER_LEDS.get_task_id());
 
+    let mut current = 0;
     let mut msg = [0; 16];
     let mut dl = INTERVAL;
     sys_set_timer(Some(dl), notifications::TIMER_MASK);
@@ -33,12 +34,17 @@ pub fn main() -> ! {
             dl += INTERVAL;
             sys_set_timer(Some(dl), notifications::TIMER_MASK);
 
-            // Toggle the green LED
-            // match is used to handle the error instead of unwrap as it is inefficient because of it's use of panics
-            // This code shouldn't produce any errors anyway, as we are not counting LED numbers anymore
-            match user_leds.led_toggle(0){
-                Ok(_) => {},
-                Err(drv_user_leds_api::LedError::NotPresent) => {}
+            // Toggle the current LED -- and if we've run out, start over
+            loop {
+                match user_leds.led_toggle(current >> 1) {
+                    Ok(_) => {
+                        current += 1;
+                        break;
+                    }
+                    Err(drv_user_leds_api::LedError::NotPresent) => {
+                        current = 0;
+                    }
+                };
             }
         }
     }
