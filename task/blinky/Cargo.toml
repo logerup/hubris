@@ -1,0 +1,22 @@
+[package]
+name = "task-blinky"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+panic-messages = ["userlib/panic-messages"]
+
+[dependencies]
+cortex-m = { workspace = true }
+
+drv-user-leds-api = { path = "../../drv/user-leds-api" }
+userlib = { path = "../../sys/userlib" }
+
+[build-dependencies]
+build-util = { path = "../../build/util" }
+
+[[bin]]
+name = "task-blinky"
+test = false
+doctest = false
+bench = false

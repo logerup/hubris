@@ -140,6 +140,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cdb031dd78e28731d87d56cc8ffef4a8f36ca26c38fe2de700543e627f8a464a"
 
 [[package]]
+name = "ba-blinky"
+version = "0.1.0"
+dependencies = [
+ "build-util",
+ "cfg-if",
+ "cortex-m",
+ "cortex-m-rt",
+ "drv-stm32h7-startup",
+ "kern",
+ "stm32h7",
+]
+
+[[package]]
 name = "bare-metal"
 version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4252,6 +4265,16 @@ dependencies = [
  "unwrap-lite",
  "userlib",
  "zerocopy 0.6.6",
+]
+
+[[package]]
+name = "task-blinky"
+version = "0.1.0"
+dependencies = [
+ "build-util",
+ "cortex-m",
+ "drv-user-leds-api",
+ "userlib",
 ]
 
 [[package]]
