@@ -11,7 +11,7 @@ task_slot!(USER_LEDS, user_leds);
 
 #[export_name = "main"]
 pub fn main() -> ! {
-    const INTERVAL: u64 = 200; // time in ms
+    const INTERVAL: u64 = 200; // time im ms
 
     let mut response: u32 = 0;
 
@@ -34,11 +34,11 @@ pub fn main() -> ! {
             sys_set_timer(Some(dl), notifications::TIMER_MASK);
 
             // Toggle the green LED
-            // Match is used to handle the error instead of unwrap as it is inefficient
+            // Match is used to handle the error instead of unwrap as it is inefficient 
             // because of it's use of panics
             // This code shouldn't produce any errors anyway, as LED numbers are not counted
-            match user_leds.led_toggle(0) {
-                Ok(_) => {}
+            match user_leds.led_toggle(0){
+                Ok(_) => {},
                 Err(drv_user_leds_api::LedError::NotPresent) => {}
             }
         }

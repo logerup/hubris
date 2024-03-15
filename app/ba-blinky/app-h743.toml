@@ -6,7 +6,7 @@ stacksize = 896
 
 [kernel]
 name = "ba-blinky"
-requires = {flash = 19936, ram = 2208} 
+requires = {flash = 19936, ram = 2032}
 features = ["h743"]
 
 [tasks.jefe]
