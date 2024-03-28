@@ -11,37 +11,38 @@ task_slot!(USER_LEDS, user_leds);
 
 #[export_name = "main"]
 pub fn main() -> ! {
-    const INTERVAL: u64 = 200; // time in ms
+    //const INTERVAL: u64 = 200; // time in ms
 
-    let mut response: u32 = 0;
+    //let mut response: u32 = 0;
 
     let user_leds = drv_user_leds_api::UserLeds::from(USER_LEDS.get_task_id());
 
-    let mut msg = [0; 16];
-    let mut dl = INTERVAL;
-    sys_set_timer(Some(dl), notifications::TIMER_MASK);
+    //let mut msg = [0; 16];
+    //let mut dl = INTERVAL;
+    //sys_set_timer(Some(dl), notifications::TIMER_MASK);
     loop {
-        let msginfo = sys_recv_open(&mut msg, notifications::TIMER_MASK);
+        //let msginfo = sys_recv_open(&mut msg, notifications::TIMER_MASK);
 
-        if msginfo.sender != TaskId::KERNEL {
-            // We'll just assume this is a ping message and reply.
-            sys_reply(msginfo.sender, response, &[]);
-            response += 1;
-        } else {
-            // This is a notification message. We've only got one notification
-            // enabled, so we know full well which it is without looking.
-            dl += INTERVAL;
-            sys_set_timer(Some(dl), notifications::TIMER_MASK);
+        //if msginfo.sender != TaskId::KERNEL {
+        // We'll just assume this is a ping message and reply.
+        //sys_reply(msginfo.sender, response, &[]);
+        //response += 1;
+        //} else {
+        // This is a notification message. We've only got one notification
+        // enabled, so we know full well which it is without looking.
+        //dl += INTERVAL;
+        //sys_set_timer(Some(dl), notifications::TIMER_MASK);
 
-            // Toggle the green LED
-            // Match is used to handle the error instead of unwrap as it is inefficient
-            // because of it's use of panics
-            // This code shouldn't produce any errors anyway, as LED numbers are not counted
-            match user_leds.led_toggle(0) {
-                Ok(_) => {}
-                Err(drv_user_leds_api::LedError::NotPresent) => {}
-            }
-        }
+        // Toggle the green LED
+        // Match is used to handle the error instead of unwrap as it is inefficient
+        // because of it's use of panics
+        // This code shouldn't produce any errors anyway, as LED numbers are not counted
+        user_leds.led_toggle(0).unwrap();
+        // match user_leds.led_toggle(0) {
+        //     Ok(_) => {}
+        //     Err(drv_user_leds_api::LedError::NotPresent) => {}
+        // }
+        //}
     }
 }
 
