@@ -12,7 +12,7 @@ features = ["h743"]
 [tasks.jefe]
 name = "task-jefe"
 priority = 0
-max-sizes = {flash = 3328, ram = 2048} 
+max-sizes = {flash = 3328, ram = 2048}
 start = true
 stacksize = 1536
 notifications = ["fault", "timer"]
@@ -20,7 +20,6 @@ extern-regions = [ "sram2", "sram3", "sram4" ]
 
 [tasks.jefe.config.allowed-callers]
 set_reset_reason = ["sys"]
-#request_reset = ["hiffy"]
 
 [tasks.sys]
 name = "drv-stm32xx-sys"
@@ -35,7 +34,7 @@ task-slots = ["jefe"]
 name = "drv-user-leds"
 features = ["stm32h7"]
 priority = 2
-max-sizes = {flash = 1408, ram = 1024}
+max-sizes = {flash = 1408, ram = 1024} 
 start = true
 task-slots = ["sys"]
 notifications = ["timer"]
@@ -47,15 +46,6 @@ max-sizes = {flash = 1024, ram = 1024}
 start = true
 task-slots = ["user_leds"]
 notifications = ["timer"]
-
-#[tasks.hiffy]
-#name = "task-hiffy"
-#features = ["h743", "stm32h7"]
-#priority = 4
-#max-sizes = {flash = 15232, ram = 32768 } 
-#stacksize = 2048
-#start = true
-#task-slots = ["sys"]
 
 [tasks.idle]
 name = "task-idle"
